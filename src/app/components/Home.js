@@ -10,22 +10,70 @@ export class Home extends React.Component {
     super();
     //setting the props.age (that was given in the index.js file) to a new variable:
     this.state = {
-      age: props.initialAge,
-      status: 0
-    };
+               age: props.initialAge,
+               status: 0,
+               homeLink: "Type Desired Link Name Here"
+           };
     //example adding a setTimeout:
     setTimeout(() => {
       this.setState({
         status: + 1
       });
     },2000);
+    //Lecture 14: observing component lifecycle
+    console.log("Constructor");
   }
+
+//first method in componenet lifecycle that gets executed
+  componentWillMount() {
+    console.log("Component will mount");
+  }
+
+  componentDidMount() {
+    console.log("Component did mount");
+  }
+
+  componentWillReceiveProps(nextProps) {
+    console.log("Component will receive props", nextProps);
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log("Should Component Update", nextProps, nextState);
+    //need to return true so that the code continues?
+    return true;
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    console.log("Component will update", nextProps, nextState);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    console.log("Component did update", prevProps, prevState);
+  }
+
+//this one needs additional details to make it trigger and be observed, done in index.js file
+  componentWillUnmount() {
+    console.log("Component will unmount");
+  }
+  //end of component lifecycle / order of excution examples from Lecture 14
 
   onMakeOlder() {
     //setState is IMPORTANT FOR INTERACTIVITY
     //this causes React to re-render
     this.setState({
       age: this.state.age + 3
+    });
+  }
+
+  onChangeLink() {
+    this.props.changeLink(this.state.homeLink);
+  }
+
+  //lecture 13 for two-way binding to allow user imput:
+  onHandleChange(event) {
+    this.setState({
+      homeLink: event.target.value
+      //event.target is the input field, the value is what has been input
     });
   }
 
@@ -38,6 +86,15 @@ export class Home extends React.Component {
         <hr/>
 
         <button onClick={() => this.onMakeOlder()} className="btn btn-primary">Make me older</button>
+        <hr/>
+
+        <button onClick={this.props.greet} className="btn btn-primary">Greet</button>
+        <hr/>
+
+        <input type="text"
+               value={this.state.homeLink}
+               onChange={(event) => this.onHandleChange(event)} />
+        <button onClick={() => this.onChangeLink()} className="btn btn-primary">Click to change the Header Link</button>
       </div>
     );
   }
@@ -62,12 +119,21 @@ export class Home extends React.Component {
 //to pass more <div>s or <p>s or <h1>s between the < Home/ >  need  {this.props.children}
 //see also index.js,  < Home/>  becomes split into  < Home > < /Home >
 
+/*
+To allow user input, two-way binding, need to include the "onChange={}" listener:
+<input type="text"
+       value={this.state.homeLink}  //this line was also changed to allow this
+       onChange={(event) => this.onHandleChange(event)} />
+*/
+
 
 //this is just a good practice apparently, to prevent accidental re-asigning a variable to a different type
 //PROP Types:  tell react the type of each property you are expecting:
 Home.propTypes = {
   name: PropTypes.string,
-  initialAge: PropTypes.number
+  initialAge: PropTypes.number,
+  greet: PropTypes.func,
+  initialLinkName: PropTypes.string
 };
 /*NOTE:  For those using latest React version: use prop-types instead of React.PropTypes.#dataType#
 
