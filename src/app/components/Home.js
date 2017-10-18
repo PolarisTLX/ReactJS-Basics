@@ -28,34 +28,41 @@ export class Home extends React.Component {
   componentWillMount() {
     console.log("Component will mount");
   }
-
   componentDidMount() {
     console.log("Component did mount");
   }
-
   componentWillReceiveProps(nextProps) {
+    //this one will appear when user inputs in the text field
     console.log("Component will receive props", nextProps);
   }
-
   shouldComponentUpdate(nextProps, nextState) {
     console.log("Should Component Update", nextProps, nextState);
+    //currently the next parts go automatically, because of the "setTimeout(() => {.... status = 1..."
+    /*to not make that trigger the update, we block React by telling it to ignore for this example like so:
+    if (nextState.status === 1) {
+      return false;
+    }
+    //NOTE: you will observe that it blocks further changes aftet 2 seconds, b/c that is when the setTimout makes the status = 1
+
+    //NOTE:  MPORTANT TO OBSERVE: nextState is the state of the component
+    //just below: constructor(props) {  super();
+    */
+
     //need to return true so that the code continues?
     return true;
   }
-
   componentWillUpdate(nextProps, nextState) {
     console.log("Component will update", nextProps, nextState);
   }
-
   componentDidUpdate(prevProps, prevState) {
     console.log("Component did update", prevProps, prevState);
   }
-
-//this one needs additional details to make it trigger and be observed, done in index.js file
   componentWillUnmount() {
+  //this one needs additional details to make it trigger and be observed, done in index.js file
     console.log("Component will unmount");
   }
   //end of component lifecycle / order of excution examples from Lecture 14
+
 
   onMakeOlder() {
     //setState is IMPORTANT FOR INTERACTIVITY

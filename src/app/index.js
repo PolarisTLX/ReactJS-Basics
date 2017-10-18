@@ -54,19 +54,24 @@ class App extends React.Component {
           </div>
         </div>
         <p>additional text</p>
+
+
         <div className="row">
           <div className="col-xs-10 col-xs-offset-1">
-            <h1>Hello World!</h1>
 
-            < Home name={"Max"}
-                   initialAge={27}
-                   greet={this.onGreet}
-                   changeLink={this.onChangeLinkName.bind(this)}
-                   initialLinkName={this.state.homeLink}
-            />
+              {homeCmp}
 
           </div>
         </div>
+        <div className="row">
+          <div className="col-xs-10 col-xs-offset-1">
+
+              <button onClick={() => this.onChangeHomeMounted()} className="btn btn-primary">(Un)Mount Home Component</button>
+
+          </div>
+        </div>
+
+
       </div>
     );
   }

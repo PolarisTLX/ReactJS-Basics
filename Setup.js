@@ -15,3 +15,9 @@ in CP type:
  "npm install webpack webpack-dev-server babel-loader babel-preset-es2015 babel-preset-react babel-preset-stage-2 --save-dev"
 
  babel-preset-stage-2 is for some extra feautes like structuring
+
+
+ Later in the series, to install the router to be able to change the pages/urls when user clicks around:
+ React router  handles these page changes
+
+ in CP: npm install --save react-router
